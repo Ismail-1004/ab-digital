@@ -86,7 +86,7 @@ onMounted(async () => {
       </div>
 
       <template v-if="!isEdit">
-        <button class="button" @click="toggle">Редактировать</button>
+        <button class="button" @click="isEdit = true">Редактировать</button>
         <button class="button delete" @click="deleteHandler">Удалить</button>
       </template>
 

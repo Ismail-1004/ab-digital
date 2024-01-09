@@ -19,3 +19,13 @@ Header - шапка сайта
 Loader - прелоудер, нужен для ожидания ответа от сервера, что бы юзер не смотрел на пустой экран
 
 UserCard - отрисовка каждого пользователя, полученных с сервера
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run dev
+```
