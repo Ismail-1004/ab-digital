@@ -13,7 +13,7 @@ defineProps({
         <img :src="user.avatar" alt="" class="card__img">
         <span class="card__name"> {{ user.first_name }} </span>
         <span class="card__email"> {{ user.email }} </span>
-        <nuxt-link :to="`user/${user.id}`" class="card__link"> Подробнее </nuxt-link>
+        <nuxt-link :to="`user/${user.id}`" class="card__link" v-if="!user.isCustomCreated"> Подробнее </nuxt-link>
     </div>
 </template>
 
@@ -37,6 +37,9 @@ defineProps({
 
     &__img {
         border-radius: 5px;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
     }
 
     &__name {

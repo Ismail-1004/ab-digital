@@ -1,15 +1,27 @@
 <script setup>
-import { useUsers } from "@/stores/users";
+import { useUsersStore } from "@/stores/users";
+const { $toast } = useNuxtApp()
 
-const userStore = useUsers()
+useHead({
+    title: 'Create'
+})
+
+const userStore = useUsersStore()
+const router = useRouter()
 
 const userData = reactive({
-    name: '',
-    job: ''
+    first_name: '',
+    email: '',
+    avatar: '/_nuxt/assets/images/banner.png',
+    last_name: '',
+    isCustomCreated: true
 })
 
 const submitHandler = async () => {
+    $toast('success', 'Данные обробатываются!')
     await userStore.createUser(userData)
+    router.push('/')
+    $toast('success', 'Пользователь успешно создан!')
 }
 
 </script>
@@ -19,8 +31,9 @@ const submitHandler = async () => {
         <div class="create__content container">
             <h2 class="create__content-title"> Создание пользователя </h2>
             <form class="create__content-form" @submit.prevent="submitHandler">
-                <input type="text" class="create__content-input" v-model="userData.name" placeholder="Введите имя">
-                <input type="text" class="create__content-input" v-model="userData.job" placeholder="Введите место работы">
+                <input type="email" class="create__content-input" v-model="userData.email" placeholder="Введите email">
+                <input type="text" class="create__content-input" v-model="userData.first_name" placeholder="Введите имя">
+                <input type="text" class="create__content-input" v-model="userData.last_name" placeholder="Введите фамилию">
                 <button class="button"> Создать </button>
             </form>
         </div>

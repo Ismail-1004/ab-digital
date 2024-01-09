@@ -1,21 +1,19 @@
 <script setup>
-import { useUsers } from "@/stores/users";
+import { useUsersStore } from "@/stores/users";
+
+useHead({
+  title: 'User'
+})
+
 const { $toast } = useNuxtApp()
 
 const route = useRoute();
 const router = useRouter();
-const usersStore = useUsers();
+const usersStore = useUsersStore();
 
 let user = ref(null);
 let loading = ref(true);
 const isEdit = ref(false);
-
-const getUser = async () => {
-  const userData = await usersStore.getSingleUser(+route.params.id);
-  user.value = userData.data;
-
-  loading.value = false;
-};
 
 const updateUser = async () => {
   $toast('success', 'Данные обробатываются!')
@@ -31,22 +29,18 @@ const deleteHandler = async () => {
   $toast('success', 'Пользователь успешно удален!')
 }
 
-const userKeys = computed(() => {
-  return Object.keys(user.value).sort();
-});
-
-const toggle = () => {
-  isEdit.value = !isEdit.value;
-};
-
 onMounted(async () => {
-  await getUser();
+  const userData = await usersStore.getSingleUser(+route.params.id);
+  user.value = userData.data;
+
+  loading.value = false;
 });
 </script>
 
 <template>
   <div class="user">
-    <div class="user__content container" v-if="!loading">
+    <div class="container" v-if="!loading">
+      <div class="user__content" >
       <router-link to="/" class="button"> На главную </router-link>
       <div class="user__content-field">
         <div class="user__content-update">
@@ -100,6 +94,8 @@ onMounted(async () => {
         Сохранить
       </button>
     </div>
+    </div>
+    
 
     <Loader v-else />
   </div>
@@ -110,6 +106,10 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 
   &__content {
     background: #284b63;

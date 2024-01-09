@@ -16,6 +16,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        @media (max-width: 576px) {
+            flex-direction: column;
+            gap: 20px;
+        }
+
         &-link {
             color: white;
             font-size: 25px;

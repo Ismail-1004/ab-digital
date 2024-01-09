@@ -1,27 +1,23 @@
 <script setup>
-import { useUsers } from '@/stores/users'
+import { useUsersStore } from '@/stores/users'
 
-const usersStore = useUsers()
-const users = ref([])
-const loading = ref(true)
-
-const getUsers = async () => {
-    await usersStore.getUsers()
-    users.value = [...usersStore.getUsersList]
-    loading.value = false
-}
-
-onMounted(async () => {
-    await getUsers()
+useHead({
+    title: 'Main'
 })
 
+const usersStore = useUsersStore()
+const loading = ref(true)
 
+onMounted(async () => {
+    await usersStore.getUsers()
+    loading.value = false
+})
 </script>
 
 <template>
     <div class="users container">
         <div class="users__content" v-if="!loading">
-            <UserCard v-for="user in users" :key="user.id" :user="user" />
+            <UserCard v-for="user in usersStore.getUsersList" :key="user.id" :user="user" />
         </div>
         <Loader v-else />
     </div>
@@ -35,7 +31,13 @@ onMounted(async () => {
     &__content {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
         gap: 30px;
+
+        @media (max-width: 576px) {
+            flex-direction: column;
+            justify-content: center;
+        }
     }
 }
 </style>

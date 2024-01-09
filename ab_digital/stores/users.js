@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-export const useUsers = defineStore('users', {
+export const useUsersStore = defineStore('users', {
     state: () => ({
-        usersList: [] as User[]
+        usersList: []
     }),
 
     actions: {
@@ -20,7 +20,7 @@ export const useUsers = defineStore('users', {
             }
         },
 
-        async getSingleUser (id: string) {
+        async getSingleUser (id) {
             try {
                 const { data } = await axios.get(`https://reqres.in/api/users/${id}`)
 
@@ -30,18 +30,17 @@ export const useUsers = defineStore('users', {
             }
         },
 
-        async createUser (user: any) {
+        async createUser (user) {
             try {
                 const { data } = await axios.post(`https://reqres.in/api/users`, user)
-
-                console.log(data);
+                this.usersList.push(data)
                 
             } catch (e) {
                 throw e
             }
         },
 
-        async updateUser (user: User) {
+        async updateUser (user) {
             try {
                 const { data } = await axios.put(`https://reqres.in/api/users/${user.id}`, user)
 
@@ -53,7 +52,7 @@ export const useUsers = defineStore('users', {
         },
 
 
-        async deleteUser (id: number) {
+        async deleteUser (id) {
             await axios.delete(`https://reqres.in/api/users/${id}`)
 
             this.usersList = this.usersList.filter(u => u.id !== id)
