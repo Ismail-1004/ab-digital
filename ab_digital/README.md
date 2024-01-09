@@ -8,14 +8,14 @@
 ## Библиотеки
 [Toastify-js](https://apvarun.github.io/toastify-js/)
 
-
 [Pinia](https://pinia.vuejs.org/)
-
 
 [Axios](https://axios-http.com/docs/intro)
 
 ## Компоненты
 
 Header - шапка сайта
+
 Loader - прелоудер, нужен для ожидания ответа от сервера, что бы юзер не смотрел на пустой экран
+
 UserCard - отрисовка каждого пользователя, полученных с сервера
