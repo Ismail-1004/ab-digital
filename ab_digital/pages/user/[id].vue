@@ -3,6 +3,7 @@ import { useUsers } from "@/stores/users";
 const { $toast } = useNuxtApp()
 
 const route = useRoute();
+const router = useRouter();
 const usersStore = useUsers();
 
 let user = ref(null);
@@ -24,7 +25,10 @@ const updateUser = async () => {
 };
 
 const deleteHandler = async () => {
-    await usersStore.deleteUser(user.value.id)
+  $toast('success', 'Данные обробатываются!')
+  await usersStore.deleteUser(user.value.id)
+  router.push('/')
+  $toast('success', 'Пользователь успешно удален!')
 }
 
 const userKeys = computed(() => {

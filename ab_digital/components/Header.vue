@@ -1,7 +1,8 @@
 <template>
     <header class="header">
         <nav class="header__nav container">
-            <h1 class="header__nav-title"> AB Digital </h1>
+            <nuxt-link class="header__nav-link" to="/"> AB Digital </nuxt-link>
+            <nuxt-link class="button" to="/create"> Создать пользователя </nuxt-link>
         </nav>
     </header>
 </template>
@@ -12,8 +13,13 @@
     padding: 20px 0;
 
     &__nav {
-        &-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &-link {
             color: white;
+            font-size: 25px;
+            font-weight: bold;
         }
     }
 }

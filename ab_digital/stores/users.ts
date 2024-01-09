@@ -30,6 +30,17 @@ export const useUsers = defineStore('users', {
             }
         },
 
+        async createUser (user: any) {
+            try {
+                const { data } = await axios.post(`https://reqres.in/api/users`, user)
+
+                console.log(data);
+                
+            } catch (e) {
+                throw e
+            }
+        },
+
         async updateUser (user: User) {
             try {
                 const { data } = await axios.put(`https://reqres.in/api/users/${user.id}`, user)
@@ -43,9 +54,9 @@ export const useUsers = defineStore('users', {
 
 
         async deleteUser (id: number) {
-            const { data } = await axios.delete(`https://reqres.in/api/users/${id}`)
+            await axios.delete(`https://reqres.in/api/users/${id}`)
 
-            console.log(data);
+            this.usersList = this.usersList.filter(u => u.id !== id)
         }
     },
 
